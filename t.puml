@@ -1,0 +1,72 @@
+@startuml
+!theme plain
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor LightBlue
+    BorderColor DarkBlue
+    ArrowColor DarkSlateGray
+}
+
+title Use Case Diagram - Smart Educational Assistant System
+
+left to right direction
+
+actor "Student" as Student
+actor "Teacher" as Teacher
+actor "AI Engine" as AI_System <<System>>
+actor "Chatbot Service" as Chatbot <<System>>
+
+rectangle "Smart Educational Assistant System" {
+    
+    ' Primary Use Cases
+    usecase "Upload Lecture\nFile" as UC1
+    usecase "Generate\nLecture Notes" as UC2
+    usecase "Create Key\nSummaries" as UC3
+    usecase "Generate\nPersonalized Quiz" as UC4
+    usecase "View Quiz\nResults & Analytics" as UC5
+    usecase "Interactive Q&A\nwith Chatbot" as UC6
+    usecase "Provide Real-time\nAnswers" as UC7
+    
+    ' Additional Use Cases
+    usecase "Validate File\nFormat" as UC8
+    usecase "Extract Content\nfrom File" as UC9
+}
+
+' Student Interactions
+Student --> UC1 : uploads content
+Student --> UC4 : requests quiz
+Student --> UC5 : views results
+Student --> UC6 : asks questions
+
+' Teacher Interactions
+Teacher --> UC1 : uploads material
+Teacher --> UC5 : monitors progress
+
+' System Interactions
+AI_System --> UC2 : processes
+AI_System --> UC3 : analyzes
+AI_System --> UC4 : generates
+AI_System --> UC5 : calculates
+
+Chatbot --> UC6 : manages interaction
+Chatbot --> UC7 : provides response
+
+' Relationships
+UC1 ..> UC8 : <<include>>
+UC8 ..> UC9 : <<include>>
+UC9 ..> UC2 : <<include>>
+UC2 ..> UC3 : <<include>>
+UC3 .> UC4 : <<extend>>
+UC6 ..> UC7 : <<include>>
+
+note right of UC4
+  Quiz adapts to 
+  student's knowledge level
+end note
+
+note left of UC1
+  Supports PDF, PPTX,
+  DOCX, and video files
+end note
+
+@enduml
